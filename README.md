@@ -126,3 +126,5 @@ The model consists of:
   - **Data Augmentation:** To improve robustness, the training data was augmented with random rotations, shifts, shears, zooms, and horizontal flips.
   - **Performance:** The model was trained for 10 epochs and achieved a final **test accuracy of 91.51%**.
 
+--yeah bunch of random stuff is there which are absolutely for fun.
+
