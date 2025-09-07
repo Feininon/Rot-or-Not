@@ -1,4 +1,5 @@
 # Model Architecture and CNN Explanation
+--written by deepseekv3.1
 
 ## Convolutional Neural Network (CNN) Overview
 
