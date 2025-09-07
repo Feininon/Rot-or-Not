@@ -1,8 +1,5 @@
 
-### `DEEP_LEARNING_EXPLAINED.md`
-
-
-# Understanding the Deep Learning Behind the Fruit Classifier
+# Understanding the Deep Learning Behind the Rotten Classifier
 
 This document explains the core deep learning concepts and the specific architecture of the Convolutional Neural Network (CNN) used to classify fruits in this project.
 
