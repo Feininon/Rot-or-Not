@@ -1,4 +1,5 @@
 # Rotten Fruit Classifier
+--written by deepseekv3.1
 
 A web-based application that classifies fruits as fresh or rotten using a Convolutional Neural Network (CNN) model built with TensorFlow/Keras.
 
