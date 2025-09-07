@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotten Fruit Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4acc4;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button, input[type="file"] {
+            padding: 10px 15px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #592a3b;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #8c5c6c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rotten Fruit Classifier</h1>
+        <p>Upload an image or capture one with your webcam to classify the fruit.</p>
+
+        <!-- File upload -->
+        <input type="file" id="fileInput">
+        <button id="uploadBtn">Upload and Predict</button>
+
+        <!-- Webcam capture -->
+        <div>
+            <video id="webcam" autoplay playsinline width="300" height="300"></video>
+            <canvas id="canvas" width="300" height="300" style="display: none;"></canvas>
+            <button id="captureBtn">Capture from Webcam</button>
+        </div>
+
+        <!-- Result -->
+        <div id="result" style="margin-top: 20px;">
+            <p id="prediction"></p>
+            <img id="outputImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const webcam = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        const resultDiv = document.getElementById('result');
+        const predictionText = document.getElementById('prediction');
+        const outputImage = document.getElementById('outputImage');
+
+        // Start webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                webcam.srcObject = stream;
+            })
+            .catch((err) => console.error(err));
+
+        // Upload and Predict
+        uploadBtn.addEventListener('click', () => {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        predictionText.textContent = `Prediction: ${data.predicted_class} (${data.confidence.toFixed(2)}% confidence)`;
+                        outputImage.src = data.image_url;
+                    }
+                })
+                .catch(err => console.error(err));
+        });
+
+        // Capture from Webcam
+        captureBtn.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob((blob) => {
+                const formData = new FormData();
+                formData.append('file', blob, 'webcam_capture.png');
+
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            predictionText.textContent = `Prediction: ${data.predicted_class} (${data.confidence.toFixed(2)}% confidence)`;
+                            outputImage.src = data.image_url;
+                        }
+                    })
+                    .catch(err => console.error(err));
+            });
+        });
+    </script>
+</body>
+</html>
