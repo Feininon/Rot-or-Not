@@ -35,9 +35,9 @@ A web-based application that uses a deep learning model to classify images of fr
 ├── templates/
 │   └── index.html        \# Frontend HTML file
 ├── app.py                \# Main Flask application
-├── model\_training.ipynb  \# Jupyter Notebook for model training
+├── model_training.ipynb  \# Jupyter Notebook for model training
 ├── req.txt               \# Python dependencies
-└── rotten\_fruit\_classifier.h5 \# The pre-trained model
+└── rotten_fruit_classifier.h5 \# The pre-trained model
 
 ````
 
