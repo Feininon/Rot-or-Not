@@ -1,8 +1,7 @@
----
 
 ### `DEEP_LEARNING_EXPLAINED.md`
 
-```markdown
+
 # Understanding the Deep Learning Behind the Fruit Classifier
 
 This document explains the core deep learning concepts and the specific architecture of the Convolutional Neural Network (CNN) used to classify fruits in this project.
