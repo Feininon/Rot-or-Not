@@ -1,5 +1,6 @@
 # Rotten Fruit Classifier 🍎🤢
 --written by AI 
+
 --i was  thinking like classification for individual fruits and stuff which makes  the classes very high but if it works then fine, then my friend suggested me to keep two classes, rot and not.
 
 A web-based application that uses a deep learning model to classify images of fruits as either **fresh** or **rotten**. You can either upload an image or use your webcam to capture a picture for real-time classification.
